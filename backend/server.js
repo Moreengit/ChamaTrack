@@ -8,15 +8,19 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
+// Middleware to allow frontend to connect and parse JSON
 app.use(cors());
 app.use(bodyParser.json());
 
-// Simple test route
+// Simple test route to confirm the server is working
 app.get('/', (req, res) => {
-  res.json({ message: 'ChamaTrack Backend is alive! 🚀' });
+  res.json({ 
+    message: 'ChamaTrack Backend is alive! 🚀',
+    status: 'running',
+    time: new Date().toISOString()
+  });
 });
 
 app.listen(PORT, () => {
-  console.log(`Backend server running on http://localhost:${PORT}`);
+  console.log(`ChamaTrack backend server running on http://localhost:${PORT}`);
 });
