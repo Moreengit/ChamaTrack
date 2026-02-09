@@ -1,0 +1,24 @@
+# Node.js / npm
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+*.log
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temporary files
+*.swp
+*~
