@@ -1,0 +1,81 @@
+.hero-section {
+  position: relative;
+  height: 100vh;                    /* full viewport height */
+  min-height: 700px;                /* prevent it from becoming too small on big screens */
+  background-image: url('/assets/images/landingpage.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);  
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 0 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 4.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.hero-subtitle {
+  font-size: 2.1rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  max-width: 780px;
+}
+
+.sdg-line {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #60a5fa;                    /* light blue for SDG line */
+  margin-bottom: 1.5rem;
+}
+
+/* Make it responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3.2rem;
+  }
+  .hero-subtitle {
+    font-size: 1.6rem;
+  }
+  .hero-description {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.6rem;
+  }
+  .hero-subtitle {
+    font-size: 1.4rem;
+  }
+}
