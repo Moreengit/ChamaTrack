@@ -1,8 +1,14 @@
-
+import { useNavigate, Link } from 'react-router-dom';
 
 import '../styles/registerchama.css';
 
 const RegisterChama = () => {
+  const navigate = useNavigate();
+
+  const handleRegisterClick = () => {
+    navigate('/auth/registerchama');
+  };
+
   return (
     <section className="register-chama-section">
       <div className="container">
@@ -47,12 +53,15 @@ const RegisterChama = () => {
             Create your chama in under 5 minutes and start tracking contributions right away.
           </p>
 
-          <button className="register-button">
+          <button 
+            className="register-button"
+            onClick={handleRegisterClick}
+          >
             Register Your Chama Now
           </button>
 
           <p className="cta-footer">
-            Already registered? <a href="/login">Log in to your dashboard</a>
+            Already have an account? <Link to="/auth/login">Log in to your dashboard</Link>
           </p>
         </div>
       </div>

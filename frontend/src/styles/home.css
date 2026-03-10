@@ -2,7 +2,7 @@
   position: relative;
   height: 100vh;                    /* full viewport height */
   min-height: 700px;                /* prevent it from becoming too small on big screens */
-  background-image: url('/assets/images/landingpage.jpg');
+  /* background-image: url('../assets/images/landingpage.jpg'); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

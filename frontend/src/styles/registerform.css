@@ -1,0 +1,187 @@
+/* src/styles/registerform.css */
+
+.register-form-page {
+  padding: 80px 0 120px;
+  background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+  min-height: 100vh;
+  color: #2c3e50;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.form-header h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #007BFF;
+  margin-bottom: 1rem;
+}
+
+.form-header p {
+  font-size: 1.18rem;
+  line-height: 1.6;
+  color: #555;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Form container */
+.chama-form {
+  background: white;
+  border-radius: 16px;
+  padding: 2.8rem 2.5rem;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+/* Grid layout for two-column form */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+/* Form field styling */
+.form-group {
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.55rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 1.05rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.95rem 1.2rem;
+  border: 1px solid #d1dbe4;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #007BFF;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.12);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Checkbox */
+.form-checkbox {
+  margin: 2rem 0 1.5rem;
+  font-size: 1.02rem;
+  color: #444;
+}
+
+.form-checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+.form-checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: #007BFF;
+}
+
+.form-checkbox a {
+  color: #007BFF;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.form-checkbox a:hover {
+  text-decoration: underline;
+}
+
+/* Submit button */
+.submit-chama-btn {
+  background: #007BFF;
+  color: white;
+  border: none;
+  padding: 1.15rem 2.8rem;
+  font-size: 1.18rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 420px;
+  margin: 1.5rem auto 0;
+  display: block;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.submit-chama-btn:hover {
+  background: #005bb5;
+  transform: translateY(-2px);
+}
+
+/* Note at the bottom */
+.form-note {
+  text-align: center;
+  margin-top: 2.5rem;
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ────────────────────────────────────────────────
+   Responsive design
+───────────────────────────────────────────────── */
+
+@media (max-width: 992px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .form-header h1 {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .register-form-page {
+    padding: 60px 0 90px;
+  }
+
+  .chama-form {
+    padding: 2rem 1.5rem;
+  }
+
+  .form-header h1 {
+    font-size: 2.1rem;
+  }
+
+  .submit-chama-btn {
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+  }
+}

@@ -1,15 +1,15 @@
+import '../styles/home.css';
+import heroBg from '../assets/images/landingpage.jpg';   // ← this is correct
 
-
-import '../styles/home.css';   
-import heroBg from '../assets/images/landingpage.png.jpg';
 const Home = () => {
   return (
     <div className="home-page">
-      {/* Reuse your header here if it's a separate component */}
-      {/* <Header /> */}
+      {/* <Header /> if you want to include it */}
 
-      <section className="hero-section">
-        {/* style={{ backgroundImage: `url(${heroImage})` }} */}
+      <section 
+        className="hero-section"
+        style={{ backgroundImage: `url(${heroBg})` }}   // ← this is the fix!
+      >
         <div className="hero-overlay"></div>
 
         <div className="hero-content">
@@ -30,7 +30,7 @@ const Home = () => {
             </p>
           </div>
 
-          {/* Optional: Add buttons later */}
+          {/* Optional buttons */}
           {/* <div className="hero-buttons">
             <button className="btn-primary">Get Started</button>
             <button className="btn-outline">Learn More</button>
@@ -38,7 +38,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* You can add more sections below later */}
+      {/* More sections below */}
     </div>
   );
 };
