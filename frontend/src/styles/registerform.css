@@ -151,6 +151,11 @@
   font-size: 1rem;
   line-height: 1.6;
 }
+.cta-footer{
+  color: rgb(24, 9, 9);
+  /* text-decoration: underline; */
+  font-weight: 600;
+}
 
 /* ────────────────────────────────────────────────
    Responsive design

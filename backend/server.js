@@ -6,14 +6,17 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 5000;
-const {connectDB} = require("./config/db")
+const pool = require("./config/db")
+
+const chamaRoute = require('./routes/user.router')
 // Middleware to allow frontend to connect and parse JSON
 
 async function startServer(){
-await connectDB()
 
 app.use(cors());
 app.use(bodyParser.json());
+
+app.use('/auth', chamaRoute)
 
 // Simple test route to confirm the server is working
 app.get('/', (req, res) => {
