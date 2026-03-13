@@ -11,8 +11,8 @@ const Header = () => {
           <li><a href="#about">About</a></li>
           <li><a href="#service">Service</a></li>
           <li><a href="#contact">Contact Us</a></li>
-          <li><Link to="/auth/registerchama">Register Chama</Link></li>
-          <li><Link to="/auth/login">Login</Link></li>
+          <li><Link to="/registerchama">Register Chama</Link></li>
+          <li><Link to="/login">Login</Link></li>
         </ul>
       </nav>
     </header>

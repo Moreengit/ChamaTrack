@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom';
-import '../styles/login.css'; // we'll create this next
+import axiosInstance from '../api/axiosInstance';
+import '../styles/login.css'; // make sure this file exists
 
 const Login = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    idNumber: '',       // chairman's ID number or national ID
+    identifier: '',  // email | phone number | chairman code
     password: '',
   });
 
@@ -19,7 +20,7 @@ const Login = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    setError(''); // clear error when typing
+    setError('');
   };
 
   const handleSubmit = async (e) => {
@@ -29,36 +30,29 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('/auth/login', { // ← change to your real API URL
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          idNumber: formData.idNumber.trim(),
-          password: formData.password,
-        }),
+      // Axios POST request
+      const response = await axiosInstance.post('/auth/login', {
+        identifier: formData.identifier.trim(),
+        password: formData.password,
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed. Check your ID and password.');
-      }
-
-      // Success → save token & redirect
-      sessionStorage.setItem('token', data.token);           // or data.accessToken
-      sessionStorage.setItem('user', JSON.stringify(data.user));
+      // Successful login
+      const data = response.data;
 
       setSuccess('Login successful! Redirecting...');
+      sessionStorage.setItem('user', JSON.stringify(data.data)); // save user info
+      // If you generate a token in the backend:
+      // sessionStorage.setItem('token', data.data.token);
 
-      // Redirect chairman to dashboard or chama management page
       setTimeout(() => {
-        navigate('/dashboard'); // or '/chama-management' / '/chairman'
+        navigate('/dashboard'); // redirect to dashboard
       }, 1200);
 
     } catch (err) {
-      setError(err.message || 'Something went wrong. Please try again.');
+      console.error(err);
+      // Axios errors come in err.response
+      const errorMsg = err.response?.data?.error || 'Login failed. Check your credentials.';
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -68,20 +62,20 @@ const Login = () => {
     <div className="login-page">
       <div className="login-container">
         <div className="login-header">
-          <h1>ChamaTrack Chairman Login</h1>
+          <h1>Login to Your Chama</h1>
           <p>Sign in to manage your chama, approve loans, and monitor contributions.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
-            <label htmlFor="idNumber">User ID</label>
+            <label htmlFor="identifier">Email / Phone Number / User ID</label>
             <input
               type="text"
-              id="idNumber"
-              name="idNumber"
-              value={formData.idNumber}
+              id="identifier"
+              name="identifier"
+              value={formData.identifier}
               onChange={handleChange}
-              placeholder="e.g. 12345678"
+              placeholder="Enter email, phone, or user ID"
               required
               autoFocus
             />

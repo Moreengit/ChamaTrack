@@ -1,8 +1,12 @@
 import '../styles/about.css';
+import calculating from '../assets/images/calculating-contributions.jpg'
+import transactions from '../assets/images/transactions.jpg'
+import loan from '../assets/images/loan.jpg'
+import notifications from '../assets/images/notifications.jpg'
 
-const About = () => {
-  return (
-    <div className="about-page">
+  const About = () => {
+    return (
+      <div className="about-page">
       <section className="about-hero">
         <div className="container">
           <h1 className="about-title">About ChamaTrack</h1>
@@ -42,32 +46,32 @@ const About = () => {
         </div>
       </section>
 
-      {/* Slideshow / Gallery section */}
-      {/* <section className="gallery-section">
+      
+      <section className="gallery-section">
         <div className="container">
           <h2 className="gallery-title">ChamaTrack in Action</h2>
           
           <div className="slideshow-wrapper">
             <div className="slideshow">
-              <div className="slide" style={{ backgroundImage: "url('/images/chama-group-meeting.jpg')" }}>
+              <div className="slide" style={{ backgroundImage: `url(${calculating})` }}>
                 <div className="slide-overlay">
                   <p>Chama members tracking contributions together</p>
                 </div>
               </div>
               
-              <div className="slide" style={{ backgroundImage: "url('/images/mpesa-transaction.jpg')" }}>
+              <div className="slide" style={{ backgroundImage: `url(${transactions})` }}>
                 <div className="slide-overlay">
                   <p>Seamless M-Pesa contribution payments</p>
                 </div>
               </div>
               
-              <div className="slide" style={{ backgroundImage: "url('/images/loan-approval.jpg')" }}>
+              <div className="slide" style={{ backgroundImage: `url(${loan})` }}>
                 <div className="slide-overlay">
                   <p>Fast & transparent loan request & approval</p>
                 </div>
               </div>
               
-              <div className="slide" style={{ backgroundImage: "url('/images/sms-notification.jpg')" }}>
+              <div className="slide" style={{ backgroundImage: `url(${notifications})` }}>
                 <div className="slide-overlay">
                   <p>Instant SMS notifications for every action</p>
                 </div>
@@ -75,7 +79,7 @@ const About = () => {
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
     </div>
   );
 };
