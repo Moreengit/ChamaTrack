@@ -83,9 +83,9 @@ const RegisterForm = () => {
         password: formData.password,
       };
 
-      // Change this URL to your real backend endpoint
+      
       const response = await axiosInstance.post(
-        '/auth/registerchama', // ← your backend route
+        '/auth/registerchama', //backend API endpoint
         payload,
         {
           headers: {

@@ -1,0 +1,28 @@
+/* Main layout */
+.dashboard {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Right side (header + content) */
+.dashboard-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f1f5f9;
+}
+
+/* Header stays at top */
+.dashboard-content header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Body content */
+.dashboard-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}

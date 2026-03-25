@@ -6,8 +6,8 @@ import notifications from '../assets/images/notifications.jpg'
 
   const About = () => {
     return (
-      <div className="about-page">
-      <section className="about-hero">
+      <div className="about-page-1">
+      {/* <section className="about-hero">
         <div className="container">
           <h1 className="about-title">About ChamaTrack</h1>
           
@@ -44,9 +44,8 @@ import notifications from '../assets/images/notifications.jpg'
             </div>
           </div>
         </div>
-      </section>
-
-      
+      </section> */}
+ 
       <section className="gallery-section">
         <div className="container">
           <h2 className="gallery-title">ChamaTrack in Action</h2>
@@ -80,6 +79,7 @@ import notifications from '../assets/images/notifications.jpg'
           </div>
         </div>
       </section>
+     
     </div>
   );
 };

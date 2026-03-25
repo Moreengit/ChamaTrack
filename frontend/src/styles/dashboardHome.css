@@ -1,0 +1,157 @@
+/* src/dashboard/pages/dashboardHome.css */
+
+/* General container for the home page content */
+.dashboard-home {
+  padding: 1.5rem 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Group Financial Summary Section */
+.financial-summary {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.financial-summary-header {
+  background: #2563eb; /* blue-600 */
+  color: white;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.financial-summary-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.financial-summary-header span {
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Grid of financial cards */
+.financial-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1px;
+  background: #2563eb; /* blue lines between cards */
+}
+
+.financial-card {
+  background: white;
+  padding: 1.5rem 1.25rem;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.financial-card-title {
+  font-size: 0.95rem;
+  color: #4b5563;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.financial-card-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.mini-bars {
+  width: 80px;
+  height: 50px;
+  background: #eff6ff;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 6px;
+  overflow: hidden;
+}
+
+.mini-bar {
+  flex: 1;
+  background: #3b82f6;
+  border-radius: 3px;
+}
+
+/* Deposits & Withdrawals Chart Section */
+.chart-section {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.chart-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.chart-toggle {
+  color: #6b7280;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.chart-toggle:hover {
+  color: #2563eb;
+}
+
+/* Chart container */
+#chartdiv {
+  width: 100%;
+  height: 420px;
+  margin: 0 auto;
+}
+
+/* Footer note under chart */
+.chart-footer {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .financial-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .financial-card {
+    padding: 1.25rem;
+  }
+
+  .financial-card-value {
+    font-size: 1.5rem;
+  }
+
+  #chartdiv {
+    height: 360px;
+  }
+}
