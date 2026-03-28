@@ -130,8 +130,7 @@ const RegisterForm = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="chama-form">
-          {error && <div className="error-message">{error}</div>}
-          {success && <div className="success-message">{success}</div>}
+          
 
           <div className="form-grid">
             <div className="form-column">
@@ -259,6 +258,8 @@ const RegisterForm = () => {
           >
             {loading ? 'Creating Chama...' : 'Create Chama'}
           </button>
+          {error && <div className="error-message">{error}</div>}
+          {success && <div className="success-message">{success}</div>}
           <p className="cta-footer">
             Already have an account? <Link to="/login">Log in to your dashboard</Link>
           </p>
