@@ -1,4 +1,6 @@
 const chamaModel = require('../model/chama');
+const jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 const registerChama = async (data) => {
 
@@ -24,9 +26,18 @@ const loginChairman = async ({ identifier, password }) => {
   if (!isMatch) {
     throw new Error('Invalid login credentials');
   }
+   const token = jwt.sign(
+    {
+      id: chairman.id,
+      role: 'chairman'
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: process.env.JWT_EXPIRES_IN }
+  );
 
   // Optional: generate token here if using JWT
   return {
+    token,
     chairmanId: chairman.id,
     chairmanCode: chairman.chairman_code,
     name: chairman.chairman_name,

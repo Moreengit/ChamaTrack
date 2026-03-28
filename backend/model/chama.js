@@ -15,37 +15,44 @@ const generateChairmanId = async () => {
   let nextNumber = 1;
 
   if (result.rows.length > 0) {
-    const lastId = result.rows[0].id; // CH101
-    const numberPart = parseInt(lastId.replace('CH', ''));
-    nextNumber = numberPart + 1;
+    nextNumber = result.rows[0].id + 1;
   }
 
   return `CH${nextNumber}`;
+
 };
 
 
 const createChairman = async (data) => {
-
   const { chairmanName, email, phonenumber, password } = data;
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const chairman_code = await generateChairmanId();
-
-  const query = `
+  // 1️⃣ Insert first WITHOUT chairman_code
+  const insertQuery = `
     INSERT INTO chairmen
-    (chairman_code, chairman_name, email, phone_number, password)
-    VALUES ($1,$2,$3,$4,$5)
+    (chairman_name, email, phone_number, password)
+    VALUES ($1,$2,$3,$4)
     RETURNING id
   `;
 
-  const values = [chairman_code, chairmanName, email, phonenumber, hashedPassword];
+  const insertValues = [chairmanName, email, phonenumber, hashedPassword];
 
-  const result = await pool.query(query, values);
+  const insertResult = await pool.query(insertQuery, insertValues);
 
-  return result.rows[0];
+  const id = insertResult.rows[0].id;
+
+  // 2️⃣ Generate code safely
+  const chairman_code = `CH${id}`;
+
+  // 3️⃣ Update row
+  await pool.query(
+    `UPDATE chairmen SET chairman_code = $1 WHERE id = $2`,
+    [chairman_code, id]
+  );
+
+  return { id, chairman_code };
 };
-
 
 const createChama = async (data, chairmanId) => {
 

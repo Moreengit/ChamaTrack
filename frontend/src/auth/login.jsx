@@ -45,7 +45,7 @@ const Login = () => {
       // sessionStorage.setItem('token', data.data.token);
 
       setTimeout(() => {
-        navigate('/dashboard'); // redirect to dashboard
+        navigate('/dashboard'); 
       }, 1200);
 
     } catch (err) {

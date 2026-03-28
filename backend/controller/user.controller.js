@@ -22,6 +22,7 @@ const registerChama = async (req, res) => {
 
   }
 };
+
 const loginChairman = async (req, res) => {
   try {
     const { identifier, password } = req.body;

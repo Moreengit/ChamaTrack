@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axiosInstance from '../api/axiosInstance';
 import '../styles/addadmins.css';
 
 const AddAdmins = () => {
@@ -7,6 +8,9 @@ const AddAdmins = () => {
     secretary: { name: '', email: '', password: '', registered: false },
     treasurer: { name: '', email: '', password: '', registered: false }
   });
+ const [message, setMessage] = useState('')
+ const [loading, setLoading] = useState(false)
+ const [error, setError] = useState('')
 
   const handleChange = (role, field, value) => {
     setAdmins({
@@ -18,14 +22,27 @@ const AddAdmins = () => {
     });
   };
 
-  const registerAdmin = (role) => {
-    const admin = admins[role];
+  const registerAdmin = async (role) => {
+  const admin = admins[role];
 
-    if (!admin.name || !admin.email || !admin.password) {
-      alert(`Complete all ${role} fields`);
-      return;
-    }
+  if (!admin.name || !admin.email || !admin.password) {
+    alert(`Complete all ${role} fields`);
+    return;
+  }
 
+  setMessage('')
+  setError('')
+  try {
+    const res = await axiosInstance.post('/admins/register', {
+      name: admin.name,
+      email: admin.email,
+      password: admin.password,
+      role: role  
+    });
+
+    setMessage(res.data.message || 'admin registered successfully');
+
+    // update UI only AFTER success
     setAdmins({
       ...admins,
       [role]: {
@@ -33,8 +50,15 @@ const AddAdmins = () => {
         registered: true
       }
     });
-  };
 
+    alert(`${role} registered successfully`);
+
+  } catch (err) {
+    console.error(err);
+    alert(err.response?.data?.message || "Something went wrong");
+
+  }
+};
   return (
     <div className="add-admins-container">
 
