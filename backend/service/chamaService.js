@@ -71,7 +71,8 @@ const getChairmanProfile = async (chairmanId) => {
     id: chairman.id,
     chairmanName: chairman.chairman_name,
     email: chairman.email,
-    chairmanCode: chairman.chairman_code
+    chairmanCode: chairman.chairman_code,
+    
   };
 };
 
