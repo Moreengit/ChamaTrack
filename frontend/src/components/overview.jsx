@@ -1,11 +1,14 @@
 import '../styles/overview.css';
+import { useEffect, useState} from 'react';
+import axiosInstance from '../api/axiosInstance';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer
 } from 'recharts';
 
 
 const Overview = () => {
-  const userName = "Chairman"; 
+  const [username, setUsername] = useState('')
+  const [chairman, setChairman] = useState(null);
 
   const data = [
     { name: 'Jan', contributions: 40000 },
@@ -15,13 +18,29 @@ const Overview = () => {
     { name: 'May', contributions: 60000 },
   ];
 
+  useEffect(() => {
+  const fetchChairman = async () => {
+    try {
+      const res = await axiosInstance.get('/auth/chairman');
+
+      setChairman(res.data);
+
+    } catch (err) {
+      console.log('error occured trying to retrieve chairman name', err);
+    }
+  };
+
+  fetchChairman(); // ✅ CALL IT
+
+}, []);
+
 
   return (
     <div className="overview">
 
       {/* Welcome Section */}
       <div className="welcome-card">
-        <h2>Welcome back, {userName} 👋</h2>
+        <h2>Welcome back, {chairman?.chairmanName || "Chairman"} 👋</h2>
         <p>Here’s what’s happening in your chama today.</p>
       </div>
 

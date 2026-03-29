@@ -90,7 +90,65 @@
   resize: vertical;
   min-height: 120px;
 }
+.form-password {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
 
+/* Label */
+.form-password label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Input */
+.form-password input {
+  width: 90%;
+  padding: 10px 40px 10px 12px; /* space for eye icon */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+/* Input focus effect */
+.form-password input:focus {
+  border-color: #007bff;
+}
+
+/* Eye icon */
+.form-password .eye-icon {
+  position: absolute;
+  right: 30px;
+  top: 38px; /* aligns with input */
+  transform: translateY(-50%);
+  font-size: 18px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Make parent relative for positioning */
+.form-password {
+  position: relative;
+}
+
+/* Password strength text */
+.form-password small {
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+/* Optional colors */
+.form-password small {
+  color: orange;
+}
+
+.form-password small:contains("Strong") {
+  color: green;
+}
 /* Checkbox */
 .form-checkbox {
   margin: 2rem 0 1.5rem;
@@ -156,6 +214,7 @@
   /* text-decoration: underline; */
   font-weight: 600;
 }
+
 
 /* ────────────────────────────────────────────────
    Responsive design

@@ -33,7 +33,7 @@ const AddAdmins = () => {
   setMessage('')
   setError('')
   try {
-    const res = await axiosInstance.post('/admins/register', {
+    const res = await axiosInstance.post('/auth/admins/register', {
       name: admin.name,
       email: admin.email,
       password: admin.password,

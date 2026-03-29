@@ -40,9 +40,32 @@ const loginChairman = async (req, res) => {
   }
 };
 
+const getChairman = async (req, res) => {
+  try {
+    const chairmanId = req.user.id; // from JWT middleware
+
+    const chairman = await chamaService.getChairmanProfile(chairmanId);
+
+    res.status(200).json({
+      chairmanName: chairman.chairmanName,
+      chairmanCode: chairman.chairmanCode,
+      email: chairman.email
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Failed to fetch chairman profile"
+    });
+  }
+};
+
+
 
 
 module.exports = {
   registerChama,
-  loginChairman
+  loginChairman,
+  getChairman
 };
