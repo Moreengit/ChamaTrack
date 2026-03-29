@@ -1,0 +1,8 @@
+.footer-dash {
+  background: linear-gradient(180deg, #1e40af, #2563eb, #3b82f6);
+  border-top: 1px solid white;
+  text-align: center;
+  padding: 12px;
+  font-size: 13px;
+  color: black;
+}

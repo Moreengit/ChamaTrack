@@ -21,6 +21,7 @@ const RegisterForm = () => {
   const [error, setError] = useState('');
   const [passwordStrength, setPasswordStrength] = useState('');
   const [success, setSuccess] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
 
   const checkPasswordStrength = (password) => {
@@ -36,6 +37,7 @@ const RegisterForm = () => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
+       password: '' ,
       [name]: type === 'checkbox' ? checked : value,
     }));
     setError(''); // clear error on change
@@ -83,9 +85,10 @@ const RegisterForm = () => {
         password: formData.password,
       };
 
-      // Change this URL to your real backend endpoint
+      console.log("data sent", payload);
+      
       const response = await axiosInstance.post(
-        '/auth/registerchama', // ← your backend route
+        '/auth/registerchama', //backend API endpoint
         payload,
         {
           headers: {
@@ -130,8 +133,7 @@ const RegisterForm = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="chama-form">
-          {error && <div className="error-message">{error}</div>}
-          {success && <div className="success-message">{success}</div>}
+          
 
           <div className="form-grid">
             <div className="form-column">
@@ -211,16 +213,20 @@ const RegisterForm = () => {
                 />
               </div>
 
-              <div className="form-group">
+              <div className="form-password">
                 <label>Password *</label>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Create a strong password"
+                  autoComplete="new-password"
                   required
                 />
+                <span onClick={() => setShowPassword(!showPassword)} className="eye-icon" style={{ cursor: "pointer" }}>
+  {showPassword ? "🙈" : "👁️"}
+</span>
                 {passwordStrength && (
                   <small
                     style={{
@@ -232,11 +238,10 @@ const RegisterForm = () => {
                     {passwordStrength}
                   </small>
                 )}
+                
               </div>
             </div>
           </div>
-
-          
 
           <div className="form-checkbox">
             <label>
@@ -259,6 +264,8 @@ const RegisterForm = () => {
           >
             {loading ? 'Creating Chama...' : 'Create Chama'}
           </button>
+          {error && <div className="error-message">{error}</div>}
+          {success && <div className="success-message">{success}</div>}
           <p className="cta-footer">
             Already have an account? <Link to="/login">Log in to your dashboard</Link>
           </p>

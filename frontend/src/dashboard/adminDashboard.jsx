@@ -1,12 +1,23 @@
+//import  { useState } from 'react';
+import Header from '../components/headerdash'; 
+import Sidebar from '../components/sidebar';       
+import FooterDash from '../components/footerDash';
 
+import '../styles/admindashboard.css';
 
+export default function AdminDashboard({ children }) {
 
-const Dashboard = () => {
+  return (
+    <div className="">
+      <header>
+        <Header />
 
-    return(
-        <h2>welcome to my dashboard</h2>
-    )
+      </header>
+      <main className="">
+        <Sidebar/>
 
-}
-
-export default Dashboard;
+      </main>
+     <FooterDash/>
+    </div>
+  );
+};

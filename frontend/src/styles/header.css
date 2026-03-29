@@ -1,10 +1,10 @@
-.header {
-  background-color: #007BFF; /* Blue background */
+.header-home {
+  background-color: #007BFF; 
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  color: white;
+  color: rgb(220, 223, 219);
 }
 
 .logo {
@@ -28,5 +28,5 @@
 }
 
 .nav-list li a:hover {
-  color: #FFD700; /* Optional: gold color on hover */
+  color: #FFD700;
 }

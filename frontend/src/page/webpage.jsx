@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+
 
 import Header from '../components/header';
 import Home from '../components/home';
@@ -17,24 +17,14 @@ const Webpage = () => {
       <Header />
 
       <main>
-        <Routes>
-          {/* Home page shows all main sections */}
-          <Route
-            path="/"
-            element={
-              <>
-                <Home />
-                <About />
-                <Services />
-                <RegisterChama />
-                <ContactUs />
-              </>
-            }
-          />
-
-          {/* Dedicated full-page form when user clicks Register Chama */}
-          <Route path="/register-chama" element={<RegisterForm />} />
-        </Routes>
+       
+        <Home />
+        <About />
+        <Services />
+        <RegisterChama />
+        <ContactUs />
+              
+                            
       </main>
 
       <Footer />

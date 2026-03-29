@@ -1,57 +1,79 @@
-import { useState } from 'react'; 
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../api/axiosInstance';
-import '../styles/login.css'; // make sure this file exists
+import '../styles/login.css';
 
 const Login = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    identifier: '',  // email | phone number | chairman code
+    identifier: '',
     password: '',
   });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
+  // Clean & simple input handler
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-    setError('');
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    // Clear error when user starts typing
+    if (error) setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
     setError('');
     setSuccess('');
-    setLoading(true);
 
     try {
-      // Axios POST request
-      const response = await axiosInstance.post('/auth/login', {
+      const res = await axiosInstance.post('/auth/login', {
         identifier: formData.identifier.trim(),
-        password: formData.password,
+        password: formData.password.trim(),
       });
 
-      // Successful login
-      const data = response.data;
+      const data = res.data?.data;
+
+      if (!data?.token) {
+        throw new Error('Invalid server response');
+      }
+
+      // Store auth data
+      sessionStorage.setItem('token', data.token);
+      sessionStorage.setItem(
+        'user',
+        JSON.stringify({
+          chairmanId: data.chairmanId,
+          chairmanCode: data.chairmanCode,
+          name: data.name,
+          email: data.email,
+          phoneNumber: data.phoneNumber,
+        })
+      );
 
       setSuccess('Login successful! Redirecting...');
-      sessionStorage.setItem('user', JSON.stringify(data.data)); // save user info
-      // If you generate a token in the backend:
-      // sessionStorage.setItem('token', data.data.token);
 
       setTimeout(() => {
-        navigate('/dashboard'); // redirect to dashboard
+        navigate('/dashboard');
       }, 1200);
-
     } catch (err) {
-      console.error(err);
-      // Axios errors come in err.response
-      const errorMsg = err.response?.data?.error || 'Login failed. Check your credentials.';
+      console.error('Login error:', err);
+
+      const errorMsg =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        'Invalid credentials. Please try again.';
+
       setError(errorMsg);
     } finally {
       setLoading(false);
@@ -63,50 +85,69 @@ const Login = () => {
       <div className="login-container">
         <div className="login-header">
           <h1>Login to Your Chama</h1>
-          <p>Sign in to manage your chama, approve loans, and monitor contributions.</p>
+          <p>Manage contributions, members, and loans easily.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="login-form">
+        <form onSubmit={handleSubmit} className="login-form" autoComplete="off">
+          {/* Identifier Field */}
           <div className="form-group">
-            <label htmlFor="identifier">Email / Phone Number / User ID</label>
+            <label htmlFor="identifier">Email / Phone / User ID</label>
             <input
-              type="text"
               id="identifier"
+              type="text"
               name="identifier"
               value={formData.identifier}
               onChange={handleChange}
-              placeholder="Enter email, phone, or user ID"
+              placeholder="Enter email, phone, or ID"
               required
-              autoFocus
             />
           </div>
 
-          <div className="form-group">
+          {/* Password Field */}
+          <div className="form-group password-box">
             <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              required
-            />
+
+            <div className="password-container">
+              <input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                value={formData.password || ''}
+                onChange={handleChange}
+                placeholder="Enter password"
+                autoComplete="current-password"
+                required
+              />
+
+              <span
+                className="eye-icon"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? '🙈' : '👁️'}
+              </span>
+            </div>
           </div>
 
+          {/* Messages */}
           {error && <div className="error-message">{error}</div>}
           {success && <div className="success-message">{success}</div>}
 
-          <button type="submit" className="login-btn" disabled={loading}>
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="login-btn"
+            disabled={loading}
+          >
             {loading ? 'Signing in...' : 'Login'}
           </button>
 
+          {/* Footer Links */}
           <div className="form-footer">
-            <a href="/forgot-password" className="forgot-link">
-              Forgot password?
-            </a>
+            <a href="/forgot-password">Forgot password?</a>
             <p>
-              Not a chairman? <a href="/member-login">Login as member</a>
+              Not a chairman?{' '}
+              <a href="/member-login">Login as member</a>
             </p>
           </div>
         </form>

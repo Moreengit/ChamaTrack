@@ -1,0 +1,78 @@
+/* Header container */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #1e40af, #2563eb, #3b82f6);
+  padding: 15px 25px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Left */
+.header-left h2 {
+  margin: 0;
+  color: #1e3a8a;
+}
+
+/* Center */
+.header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* Search box */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: 300px;
+  gap: 8px;
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+}
+
+/* Right */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon {
+  cursor: pointer;
+  color: #374151;
+  transition: 0.3s;
+}
+
+.icon:hover {
+  color: #2563eb;
+}
+
+/* Logout button */
+.logout-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background: #1e40af;
+}
+
+/* Page content spacing */
+.page-content {
+  padding: 20px;
+}

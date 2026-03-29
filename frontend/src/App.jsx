@@ -13,6 +13,7 @@ function App() {
         <Route  path="/registerchama" element={<RegisterForm/>}/>
         <Route path="/login" element={<Login/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
+        
       </Routes>
     </Router>
   );
