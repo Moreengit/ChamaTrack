@@ -11,5 +11,11 @@ router.post(
   authorizeRoles('chairman'),
   adminController.registerAdmin
 );
+router.get(
+  '/display',
+  authenticateToken,
+  authorizeRoles('chairman'),
+  adminController.getAdmins
+)
 
 module.exports = router;

@@ -31,7 +31,15 @@
   transition: all 0.3s ease;
   font-size: 14px;
 }
-
+.eye-icon {
+  position: absolute;
+  right: 15px;
+  top: 20px; /* aligns with input */
+  transform: translateY(-50%);
+  font-size: 18px;
+  cursor: pointer;
+  user-select: none;
+}
 /* Focus effect */
 .admin-form-card input:focus {
   border-color: #2563eb;

@@ -19,7 +19,18 @@ const create = async (data) => {
   return result.rows[0];
 };
 
-// ✅ ADD THIS EXPORT
+const findByChama = async (chama_id) => {
+  const sql = `
+    SELECT id, name, email, role
+    FROM admins
+    WHERE chama_id = $1
+  `;
+
+  const result = await pool.query(sql, [chama_id]);
+  return result.rows;
+};
+
 module.exports = {
-  create
+  create,
+  findByChama
 };

@@ -1,16 +1,29 @@
 const bcrypt = require('bcrypt');
 const adminModel = require('../model/admin.model.js');
 
-const createAdmin = async (data) => {
-  const hashedPassword = await bcrypt.hash(data.password, 10);
+const createAdmin = async ({ chama_id, admins }) => {
+  const results = [];
 
-  return await adminModel.create({
-    chama_id: data.chama_id,
-    name: data.name,
-    email: data.email,
-    password: hashedPassword,
-    role: data.role
-  });
+  for (const admin of admins) {
+    const hashedPassword = await bcrypt.hash(admin.password, 10);
+
+    const created = await adminModel.create({
+      chama_id,
+      name: admin.name,
+      email: admin.email,
+      password: hashedPassword,
+      role: admin.role
+    });
+
+    results.push(created);
+  }
+
+  return results;
+};
+const getAdminsByChama = async (chama_id) => {
+  return await adminModel.findByChama(chama_id);
 };
 
-module.exports = { createAdmin };
+
+
+module.exports = { createAdmin, getAdminsByChama };

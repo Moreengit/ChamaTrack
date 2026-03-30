@@ -2,24 +2,29 @@ const adminService = require('../service/admin.service');
 
 const registerAdmin = async (req, res) => {
   try {
-    const chama_id = req.user.chama_id; // FIXED KEY
+    const chama_id = req.user.chama_id;
+    const { admins } = req.body;
 
-    const { name, email, password, role } = req.body;
+    if (!Array.isArray(admins) || admins.length === 0) {
+      return res.status(400).json({ message: 'Admins data required' });
+    }
 
-    if (!['secretary', 'treasurer'].includes(role)) {
-      return res.status(400).json({ message: 'Invalid role' });
+    // validate roles
+    for (const admin of admins) {
+      if (!['secretary', 'treasurer'].includes(admin.role)) {
+        return res.status(400).json({
+          message: `Invalid role: ${admin.role}`
+        });
+      }
     }
 
     const result = await adminService.createAdmin({
-      chama_id,   // FIXED
-      name,
-      email,
-      password,
-      role
+      chama_id,
+      admins
     });
 
     res.status(201).json({
-      message: `${role} created successfully`,
+      message: 'Admins created successfully',
       data: result
     });
 
@@ -29,4 +34,19 @@ const registerAdmin = async (req, res) => {
   }
 };
 
-module.exports = { registerAdmin };
+const getAdmins = async (req, res) => {
+  try {
+    const chama_id = req.user.chama_id;
+
+    const admins = await adminService.getAdminsByChama(chama_id);
+
+    res.status(200).json(admins);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+module.exports = { registerAdmin, getAdmins };
