@@ -13,6 +13,11 @@ const registerChama = async (data) => {
     const chairman = await chamaModel.createChairman(data, client);
     const chama = await chamaModel.createChama(data, chairman.id, client);
 
+    await client.query(
+      `UPDATE chairmen SET chama_id = $1 WHERE id = $2`,
+      [chama.id, chairman.id]
+    );
+
     await client.query('COMMIT');
 
     return {
@@ -43,7 +48,8 @@ const loginChairman = async ({ identifier, password }) => {
    const token = jwt.sign(
     {
       id: chairman.id,
-      role: 'chairman'
+      role: 'chairman',
+      chama_id: chairman.chama_id
     },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_EXPIRES_IN }
