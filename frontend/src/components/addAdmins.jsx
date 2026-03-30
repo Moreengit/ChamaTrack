@@ -80,20 +80,23 @@ const AddAdmins = () => {
     setMessage('');
 
     try {
+
       const payload = [
-  {
-    role: 'secretary',
-    name: secretary.name,
-    email: secretary.email,
-    password: secretary.password
-  },
-  {
-    role: 'treasurer',
-    name: treasurer.name,
-    email: treasurer.email,
-    password: treasurer.password
-  }
-];
+
+        {
+
+          role: 'secretary',
+        name: secretary.name,
+        email: secretary.email,
+        password: secretary.password
+      },
+      {
+        role: 'treasurer',
+        name: treasurer.name,
+        email: treasurer.email,
+        password: treasurer.password
+      }
+    ];
 
       const res = await axiosInstance.post('/admin/register', {
         admins: payload
