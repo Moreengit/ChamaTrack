@@ -35,21 +35,21 @@ const registerChama = async (data) => {
 };
 
 const loginChairman = async ({ identifier, password }) => {
-  const chairman = await chamaModel.findChairmanByLogin(identifier);
+  const user = await chamaModel.findUserByLogin(identifier);
 
-  if (!chairman) {
+  if (!user) {
     throw new Error('Invalid login credentials');
   }
 
-  const isMatch = await chamaModel.comparePassword(password, chairman.password);
+  const isMatch = await chamaModel.comparePassword(password, user.password);
   if (!isMatch) {
     throw new Error('Invalid login credentials');
   }
    const token = jwt.sign(
     {
-      id: chairman.id,
-      role: 'chairman',
-      chama_id: chairman.chama_id
+      id: user.id,
+      role: user.role,
+      chama_id: user.chama_id
     },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_EXPIRES_IN }
@@ -58,16 +58,16 @@ const loginChairman = async ({ identifier, password }) => {
   // Optional: generate token here if using JWT
   return {
     token,
-    chairmanId: chairman.id,
-    chairmanCode: chairman.chairman_code,
-    name: chairman.chairman_name,
-    email: chairman.email,
-    phoneNumber: chairman.phone_number
+    userId: user.id,
+    role: user.role,
+    name: user.name,
+    email: user.email,
+    chamaId: user.chama_id
   };
 };
 
 const getChairmanProfile = async (chairmanId) => {
-  const chairman = await chamaModel.findChairmanById(chairmanId);
+  const chairman = await chamaModel.findUserById(chairmanId);
 
   if (!chairman) {
     throw new Error("Chairman not found");

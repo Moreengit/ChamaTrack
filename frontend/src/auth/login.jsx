@@ -44,28 +44,25 @@ const Login = () => {
 
       const data = res.data?.data;
 
-      if (!data?.token) {
-        throw new Error('Invalid server response');
-      }
-
-      // Store auth data
-      sessionStorage.setItem('token', data.token);
-      sessionStorage.setItem(
-        'user',
-        JSON.stringify({
-          chairmanId: data.chairmanId,
-          chairmanCode: data.chairmanCode,
-          name: data.name,
-          email: data.email,
-          phoneNumber: data.phoneNumber,
+      if (data?.token) {
+        sessionStorage.setItem('token', data.token);
+        sessionStorage.setItem(
+          'user',
+          JSON.stringify({
+            id: data.userId,
+            role: data.role, // Critical: Save the role!
+            name: data.name,
+            email: data.email,
+            chamaId: data.chamaId
         })
       );
 
-      setSuccess('Login successful! Redirecting...');
+      setSuccess(`Welcome back, ${data.role}!`);
 
       setTimeout(() => {
         navigate('/dashboard');
       }, 1200);
+    }
     } catch (err) {
       console.error('Login error:', err);
 

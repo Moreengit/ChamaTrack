@@ -18,31 +18,31 @@ const Overview = () => {
     { name: 'May', contributions: 60000 },
   ];
 
-  useEffect(() => {
-  const fetchChairman = async () => {
-    try {
-      const res = await axiosInstance.get('/auth/chairman');
+  // useEffect(() => {
+  // const fetchChairman = async () => {
+  //   try {
+  //     const res = await axiosInstance.get('/auth/chairman');
 
-      setChairman(res.data);
+  //     setChairman(res.data);
 
-    } catch (err) {
-      console.log('error occured trying to retrieve chairman name', err);
-    }
-  };
+  //   } catch (err) {
+  //     console.log('error occured trying to retrieve chairman name', err);
+  //   }
+  // };
 
-  fetchChairman(); // ✅ CALL IT
+//   fetchChairman(); // ✅ CALL IT
 
-}, []);
+// }, []);
 
 
   return (
     <div className="overview">
 
       {/* Welcome Section */}
-      <div className="welcome-card">
+      {/* <div className="welcome-card">
         <h2>Welcome back, {chairman?.chairmanName || "Chairman"} 👋</h2>
         <p>Here’s what’s happening in your chama today.</p>
-      </div>
+      </div> */}
 
       {/* Stats Cards */}
       <div className="stats-grid">

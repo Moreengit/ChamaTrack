@@ -1,0 +1,53 @@
+.summary-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.summary-card {
+  background: white;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: 0.2s;
+}
+
+.summary-card:hover {
+  transform: translateY(-3px);
+}
+
+.summary-card h4 {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #475569;
+}
+
+.summary-card p {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.summary-card span {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* COLORS */
+.summary-card.success {
+  border-left: 4px solid #16a34a;
+}
+
+.summary-card.pending {
+  border-left: 4px solid #f59e0b;
+}
+
+.summary-card.failed {
+  border-left: 4px solid #dc2626;
+}
+
+.summary-card.total {
+  border-left: 4px solid #3b82f6;
+}
