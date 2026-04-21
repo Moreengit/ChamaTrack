@@ -1,120 +1,128 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  Home, Users, UserPlus, DollarSign, HandCoins, BarChart3, ChevronDown, ChevronRight 
+  Home, Users, UserPlus, DollarSign, BarChart3, 
+  ChevronDown, ChevronRight, FileText, PieChart, LogOut 
 } from 'lucide-react';
 import Overview from './overview';
 import AddAdmins from './addAdmins';
+import Minutes from './minutes';
+import ViewMembers from './viewMembers';
+import RegisterMember from './registerMember';
+import ViewContributions from './contributions';
+import FinancialReport from './financialReport';
+import MemberPayment from './memberPayment';
+import MemberContributions from './memberContributionView';
+import ReceiptPage from './memberReceipt'
 import '../styles/sidebar.css';
 
 const Sidebar = () => {
   const [active, setActive] = useState("Home");
   const [reportsOpen, setReportsOpen] = useState(false);
+  const [user, setUser] = useState({ name: '', role: '' });
 
-  const render = () => {
-    switch(active){
-      case 'Home':
-        return <Overview />;
-      case 'Members':
-        return <h2>Members Page</h2>;
-      case 'Add Member':
-        return <AddAdmins />
-      case 'Contributions':
-        return <h2>Contributions Page</h2>;
-      case 'Loans':
-        return <h2>Loans Page</h2>;
-      case 'Loan Reports':
-        return <h2>Loan Reports</h2>;
-      case 'Contribution Reports':
-        return <h2>Contribution Reports</h2>;
-      default:
-        return <h2>Working on the app...</h2>;
+  useEffect(() => {
+    const storedUser = JSON.parse(sessionStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
     }
+  }, []);
+
+  // Define which menu items each role can see
+  const menuConfig = {
+    chairman: [
+      { name: 'Home', icon: <Home size={20}/> },
+      { name: 'Members', icon: <Users size={20}/> },
+      { name: 'Add Admin', icon: <UserPlus size={20}/> },
+      { name: 'Contributions', icon: <DollarSign size={20}/> },
+      { name: 'Reports', icon: <BarChart3 size={20}/>, hasSubmenu: true }
+    ],
+    secretary: [
+      { name: 'Home', icon: <Home size={20}/> },
+      { name: 'Members', icon: <Users size={20}/> },
+      { name: 'Add Members', icon: <UserPlus size={20}/> },
+      { name: 'Upload Minutes', icon: <FileText size={20}/> }
+    ],
+    treasurer: [
+      { name: 'Home', icon: <Home size={20}/> },
+      { name: 'View Contributions', icon: <DollarSign size={20}/> },
+      { name: 'Financial Report', icon: <PieChart size={20}/> }
+    ],
+    member: [
+      { name: 'Home', icon: <Home size={20}/> },
+      { name: 'My Contributions', icon: <DollarSign size={20}/> },
+      { name: 'Make Payment', icon: <UserPlus size={20}/> },
+      { name: 'Receipts', icon: <FileText size={20}/> }
+    ]
+  };
+
+  const currentMenu = menuConfig[user.role] || menuConfig['chairman'];
+
+  const renderContent = () => {
+    switch(active){
+      case 'Home': return <Overview />;
+      case 'Add Admin': return <AddAdmins />;
+      case 'Add Members': return <RegisterMember />
+      case 'Members': return <ViewMembers/>
+      case 'Upload Minutes': return <Minutes/>;
+      case 'View Contributions': return <ViewContributions />;
+      case 'Financial Report': return <FinancialReport />;
+      case 'My Contributions': return <MemberContributions/>;
+      case 'Make Payment': return <MemberPayment />;
+      case 'Receipts': return <ReceiptPage/>;
+      default: return <Overview />;
+    }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.clear();
+    window.location.href = '/';
   };
 
   return (
     <div className="side-bar">
-      {/* Sidebar */}
       <aside className="sidebar">
-
         <div className="logo">
           <h2>ChamaTrack</h2>
-          <p>Admin Panel</p>
+          <p className="role-badge">{user.role?.toUpperCase()}</p>
         </div>
 
         <div className="panel">
-
-          <button
-            onClick={() => setActive('Home')}
-            className={`menu-btn ${active === 'Home' ? 'active' : ''}`}
-          >
-            <Home size={20}/>
-            <span>Home</span>
-          </button>
-
-          <button
-            onClick={() => setActive('Members')}
-            className={`menu-btn ${active === 'Members' ? 'active' : ''}`}
-          >
-            <Users size={20}/>
-            <span>Members</span>
-          </button>
-
-          <button
-            onClick={() => setActive('Add Member')}
-            className={`menu-btn ${active === 'Add Member' ? 'active' : ''}`}
-          >
-            <UserPlus size={20}/>
-            <span>Add Member</span>
-          </button>
-
-          <button
-            onClick={() => setActive('Contributions')}
-            className={`menu-btn ${active === 'Contributions' ? 'active' : ''}`}
-          >
-            <DollarSign size={20}/>
-            <span>Contributions</span>
-          </button>
-
-          <button
-            onClick={() => setActive('Loans')}
-            className={`menu-btn ${active === 'Loans' ? 'active' : ''}`}
-          >
-            <HandCoins size={20}/>
-            <span>Loans</span>
-          </button>
-
-          {/* Reports Dropdown */}
-          <div className="menu-btn" onClick={() => setReportsOpen(!reportsOpen)}>
-            <BarChart3 size={20}/>
-            <span>Reports</span>
-            {reportsOpen ? <ChevronDown size={16}/> : <ChevronRight size={16}/>}
-          </div>
-
-          {reportsOpen && (
-            <div className="submenu">
-              <div 
-                onClick={() => setActive('Loan Reports')}
-                className="submenu-item"
+          {currentMenu.map((item) => (
+            <div key={item.name}>
+              <button
+                onClick={() => item.hasSubmenu ? setReportsOpen(!reportsOpen) : setActive(item.name)}
+                className={`menu-btn ${active === item.name ? 'active' : ''}`}
               >
-                Loan Reports
-              </div>
+                {item.icon}
+                <span>{item.name}</span>
+                {item.hasSubmenu && (reportsOpen ? <ChevronDown size={16}/> : <ChevronRight size={16}/>)}
+              </button>
 
-              <div 
-                onClick={() => setActive('Contribution Reports')}
-                className="submenu-item"
-              >
-                Contribution Reports
-              </div>
+              {item.hasSubmenu && reportsOpen && (
+                <div className="submenu">
+                  <div onClick={() => setActive('Loan Reports')} className="submenu-item">Loan Reports</div>
+                  <div onClick={() => setActive('Contribution Reports')} className="submenu-item">Contribution Reports</div>
+                </div>
+              )}
             </div>
-          )}
+          ))}
 
+          <button onClick={handleLogout} className="menu-btn logout-btn">
+            <LogOut size={20}/>
+            <span>Logout</span>
+          </button>
         </div>
-     
       </aside>
 
-      {/* Main Content */}
       <main className="main-render">
-        {render()}
+        <header className="top-nav">
+          <h3>{active}</h3>
+          <p>Welcome, back {user.name}</p>
+          <p>Here’s what’s happening in your chama today.</p>
+        </header>
+        <div className="content-area">
+          {renderContent()}
+        </div>
       </main>
     </div>
   );

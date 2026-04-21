@@ -1,0 +1,61 @@
+.report-page {
+  padding: 20px;
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.print-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* CARDS */
+.report-cards {
+  display: flex;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.card {
+  flex: 1;
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* TABLE */
+.report-table {
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.table-header, .table-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 15px;
+}
+
+.table-header {
+  background: #f1f5f9;
+  font-weight: 600;
+}
+
+/* PRINT MODE */
+@media print {
+  .print-btn {
+    display: none;
+  }
+
+  body {
+    background: white;
+  }
+}

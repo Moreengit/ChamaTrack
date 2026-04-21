@@ -1,0 +1,172 @@
+/* CONTAINER */
+.payment-widget {
+  padding: 18px;
+}
+
+/* HEADER */
+.widget-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.header-icon {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  padding: 10px;
+  border-radius: 12px;
+  color: white;
+  display: flex;
+}
+
+.widget-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.widget-header p {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* CARD */
+.payment-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(14px);
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+  transition: 0.3s;
+}
+
+.payment-card:hover {
+  transform: translateY(-2px);
+}
+
+/* INPUT GROUP */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+/* INPUT WRAPPER */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  border: 1.5px solid #cbd5e1;
+  overflow: hidden;
+  background: white;
+  transition: all 0.25s ease;
+}
+
+.input-wrapper:hover {
+  border-color: #94a3b8;
+}
+
+.input-wrapper:focus-within {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 4px rgba(22,163,74,0.12);
+}
+
+/* PREFIX */
+.input-wrapper span {
+  padding: 10px 12px;
+  background: #f1f5f9;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+}
+
+/* INPUT */
+.input-wrapper input {
+  flex: 1;
+  border: none;
+  padding: 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+/* INFO TEXT */
+.payment-info {
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #475569;
+  margin-bottom: 15px;
+}
+
+/* BUTTON */
+.pay-btn {
+  width: 100%;
+  padding: 13px;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+}
+
+.pay-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(22,163,74,0.3);
+}
+
+.pay-btn:active {
+  transform: scale(0.98);
+}
+
+/* LOADER */
+.loader {
+  width: 18px;
+  height: 18px;
+  border: 2px solid white;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ALERTS */
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+
+.alert.error {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.alert.success {
+  background: #ecfdf5;
+  color: #15803d;
+}

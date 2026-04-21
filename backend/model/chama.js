@@ -71,29 +71,93 @@ const createChama = async (data, chairmanId, client) => {
 
   return result.rows[0];
 };
-const findChairmanByLogin = async (identifier) => {
+
+const findUserByLogin = async (identifier) => {
   const query = `
-    SELECT * FROM chairmen
+    SELECT 
+      id::text, -- Cast UUID to Text
+      chairman_name AS name, 
+      email, 
+      password, 
+      chama_id::text, -- Cast UUID to Text for consistency
+      'chairman' AS role 
+    FROM chairmen
     WHERE email = $1 OR phone_number = $1 OR chairman_code = $1
+
+    UNION ALL
+
+    SELECT 
+      id::text, -- Cast Integer to Text
+      name, 
+      email, 
+      password, 
+      chama_id::text, -- Cast UUID to Text
+      role 
+    FROM admins
+    WHERE email = $1
+
+    UNION ALL
+
+    -- MEMBERS 🔥 ADD THIS
+    SELECT 
+      id::text,
+      name,
+      email,
+      password,
+      chama_id::text,
+      'member' AS role
+    FROM members
+    WHERE email = $1 OR phonenumber = $1
+
     LIMIT 1
   `;
+  
   const { rows } = await pool.query(query, [identifier]);
   return rows[0] || null;
 };
+// const findChairmanByLogin = async (identifier) => {
+//   const query = `
+//     SELECT * FROM chairmen
+//     WHERE email = $1 OR phone_number = $1 OR chairman_code = $1
+//     LIMIT 1
+//   `;
+//   const { rows } = await pool.query(query, [identifier]);
+//   return rows[0] || null;
+// };
+const findUserById = async (id, role) => {
+  let query;
+  let params;
 
-const findChairmanById = async (id) => {
-  const query = `
-    SELECT id, chairman_name, email, chairman_code
-    FROM chairmen
-    WHERE id = $1
-  `;
+  if (role === 'chairman') {
+    query = `
+      SELECT id::text, chairman_name AS name, email, 'chairman' AS role, chama_id::text
+      FROM chairmen
+      WHERE id = $1
+    `;
+    params = [id];
 
-  const result = await pool.query(query, [id]);
+  } else if (role === 'member') {
+    // 🔥 ADD THIS
+    query = `
+      SELECT id::text, name, email, 'member' AS role, chama_id::text
+      FROM members
+      WHERE id = $1
+    `;
+    params = [parseInt(id)];
 
-  return result.rows[0];
+  } else {
+    // admins
+    query = `
+      SELECT id::text, name, email, role, chama_id::text
+      FROM admins
+      WHERE id = $1
+    `;
+    params = [parseInt(id)];
+  }
+
+  const result = await pool.query(query, params);
+  return result.rows[0] || null;
 };
-
-
 const comparePassword = async (candidatePassword, hash) => {
   return bcrypt.compare(candidatePassword, hash);
 };
@@ -101,7 +165,9 @@ const comparePassword = async (candidatePassword, hash) => {
 module.exports = {
   createChairman,
   createChama,
-  findChairmanByLogin,
+  //findChairmanByLogin,
   comparePassword,
-  findChairmanById,
+  //findChairmanById,
+  findUserById,
+  findUserByLogin,
 };

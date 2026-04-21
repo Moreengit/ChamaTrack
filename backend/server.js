@@ -7,9 +7,15 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const pool = require("./config/db")
+const morgan = require("morgan")
+
 
 const chamaRoute = require('./routes/user.router')
 const adminRegister = require('./routes/adminRoute')
+const memberRoutes = require('./routes/memberRoutes');
+const minutesRoutes = require('./routes/minutesRoutes')
+const paymentRoutes = require('./routes/paymentRoutes')
+
 // Middleware to allow frontend to connect and parse JSON
 
 async function startServer(){
@@ -17,9 +23,14 @@ async function startServer(){
 app.use(cors());
 app.use(express.json()); // ✅ THIS IS ENOUGH
 app.use(express.urlencoded({ extended: true }));
+app.use(morgan('dev'));
 
 app.use('/auth', chamaRoute)
 app.use('/admin', adminRegister)
+app.use('/members', memberRoutes)
+app.use('/minutes', minutesRoutes)
+app.use('/uploads', express.static('uploads'));
+app.use('/payments', paymentRoutes)
 
 // Simple test route to confirm the server is working
 app.get('/', (req, res) => {
